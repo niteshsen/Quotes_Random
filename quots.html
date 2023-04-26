@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style1.css">
+    <title>Document</title>
+ </head>
+ <div class="container">
+    <div class="inner">
+        <div class="box">
+        <p class="number">
+        <img src="images/logo.webp" alt="tweetme" title="Tweetme" id="tweet">
+        </p>
+        <div class="text">
+        <i class="start-quote fas fa-quote-left" id="qote"></i>
+        <p class="quote" id="quotes"></p>
+        <p id="author" class="author" id="author"></p>
+        </div>
+        <label class="button">
+            <p id="newQ" onclick="quote()">Next</p>
+        </label>
+        </div>
+    </div> 
+</div>
+
+
+
+
+
+
+
+
+<body>
+   <script>
+    let quotes = document.getElementById("quotes")
+    const author = document.getElementById("author")
+    const newQ = document.getElementById("newQ")
+    const tweet = document.getElementById("tweet")
+    const quots = async ()=>{
+        let api = "https://type.fit/api/quotes"
+        try{
+            const data = await fetch(api)
+            const realData = await data.json()
+            const datas = Math.floor(Math.random()*99)
+            quotes.innerText = realData[datas].text
+            if(realData[datas].author === null){
+                author.innerText = Unknown
+            }else{
+                author.innerText = realData[datas].author 
+            }
+        }catch(error){
+            console.log(error)
+        }
+    }
+    quots()
+    
+    const tweetNow = () =>{
+            let  fetched = "https://twitter.com/intent/tweet?text = ${realData[datas].text} ${realData[datas].author}"
+            window.open(fetched);
+        }
+    newQ.addEventListener("click" ,quots)
+    tweet.addEventListener("click", tweetNow)
+
+   
+   </script> 
+</body>
+</html>
